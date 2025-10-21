@@ -28,27 +28,46 @@ A Unity Editor tool that automatically applies pixel-perfect import settings to 
 ### Manual Installation
 
 1. Download the latest release
-2. Extract to your project's `Packages` folder
-3. Unity will automatically import the package
+2. Extract to your project (recommended: `Assets/PixelArtTexturePostProcessor/` or `Packages/`)
+3. Unity will automatically detect and import the package
 
 ## Quick Start
 
-1. The package auto-creates default settings on first import
-2. Configure settings via `Assets > PixelArtTexturePostProcessor > Editor > Settings > Assets > PAT_DefaultSettings`
-3. Add your sprite paths to `Include Paths` (e.g., `Assets/Sprites/`)
-4. Import your pixel art - settings apply automatically!
+1. The package auto-creates default settings if none exist
+2. Navigate to settings: `Assets > PixelArtTexturePostProcessor > Editor > Settings > Assets > PAT_DefaultSettings`
+3. Configure your settings (PPU, paths, etc.)
+4. Settings are automatically active if it's the only one or first found
+5. Import your pixel art - settings apply automatically!
 
 ## Configuration
 
 ### Settings Location
 
-Settings are stored at:
+Default settings are stored at:
 ```
 Assets/PixelArtTexturePostProcessor/Editor/Settings/Assets/PAT_DefaultSettings.asset
 ```
 
 You can also create custom settings via:  
 `Right-click in Project → Create > PixelArtPostProcessor > Settings`
+
+### Working with Multiple Settings
+
+You can create multiple settings configurations for different workflows:
+
+1. Create new settings: `Right-click → Create > PixelArtPostProcessor > Settings`
+2. Configure the settings as needed
+3. Click the **"Set Active"** button in the Inspector to activate those settings
+4. Only one settings object can be active at a time (others are automatically deactivated)
+
+**Active Settings Indicator:**
+- Active settings show: "This settings object is currently ACTIVE" (blue info box)
+- Inactive settings show: "This settings object is currently INACTIVE" (yellow warning box)
+
+**Loading Priority on Startup:**
+1. Settings marked as `isActive = true` (uses first if multiple found)
+2. First available settings file (auto-activated as fallback)
+3. Creates default settings if none exist
 
 ### Base Settings
 
@@ -118,7 +137,7 @@ spriteMode = Single or Multiple (based on rules)
 ### Example 1: Basic Pixel Art Game
 ```
 Include Paths: ["Assets/Sprites/"]
-PPU: 16
+PPU: 32
 Min Texture Size: 32
 ```
 
@@ -128,13 +147,6 @@ Include Paths: ["Assets/Art/Characters/", "Assets/Art/Environment/"]
 Exclude Paths: ["Assets/Art/Environment/HD/"]
 Full Rect Mesh Substrings: ["UI", "9Slice"]
 Multiple Sprite Mode Substrings: ["Animation", "Spritesheet"]
-```
-
-### Example 3: High-Res Pixel Art
-```
-PPU: 64
-Min Texture Size: 64
-Include Paths: ["Assets/PixelArt/"]
 ```
 
 ## How It Works
@@ -167,10 +179,16 @@ The tool uses Unity's `AssetPostprocessor` to intercept texture imports. When a 
 A: Check that your sprite path is in `Include Paths` and not in `Exclude Paths`
 
 **Q: Can I have multiple settings files?**  
-A: Yes, but only the first one found will be used. The tool searches for any `PATSettings` asset in your project.
+A: Yes! Create multiple settings configurations. Only one can be active at a time.
+
+**Q: How do I switch between different settings?**  
+A: Select the settings you want to activate in the Inspector and click the "Set Active" button. The system automatically deactivates all other settings and activates the selected one.
 
 **Q: How do I reset to defaults?**  
 A: Delete the settings asset - it will be recreated with defaults on next import.
+
+**Q: What if I delete default settings?**  
+A: Simply restart Unity. Default settings will be automatically regenerated and set to active.
 
 ## Contributing
 
