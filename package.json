@@ -1,0 +1,24 @@
+{
+  "name": "com.kamilkosowski.pixelarttexturepostprocessor",
+  "version": "1.0.0",
+  "displayName": "Pixel Art Texture Post Processor",
+  "description": "A Unity Editor tool for post-processing pixel art textures with automated import settings and optimization for pixel-perfect rendering in Unity projects.",
+  "unity": "6000.2",
+  "dependencies": {},
+  "keywords": [
+    "pixel art",
+    "texture",
+    "post processor",
+    "import",
+    "2d",
+    "editor",
+    "tool"
+  ],
+  "author": {
+    "name": "Kamil Kosowski",
+    "email": "kosowski.ka@gmail.com"
+  },
+  "type": "tool",
+  "hideInEditor": false
+}
+
