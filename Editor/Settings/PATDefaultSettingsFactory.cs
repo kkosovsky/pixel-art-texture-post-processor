@@ -25,7 +25,7 @@ namespace PAT
             settings.multipleSpriteModePaths = PAT_Const.DefaultSettings.multipleSpriteModePaths;
     
             AssetDatabase.CreateAsset(asset: settings, path: PAT_Const.DefaultSettings.assetPath);
-            PATLog.Success(message: $"Default PAT Settings created at: {PAT_Const.DefaultSettings.assetPath}");
+            PATLog.Success(message: StringsFactory.MakeDefaultSettingsCreated(assetPath: PAT_Const.DefaultSettings.assetPath));
             return settings;
         }
 

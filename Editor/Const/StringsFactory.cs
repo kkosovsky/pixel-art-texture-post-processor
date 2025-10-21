@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Text;
 
 namespace PAT
@@ -10,48 +9,156 @@ namespace PAT
 
         internal static string MakeInvalidPath(string assetPath)
         {
-            return $"{PAT_Const.Strings.invalidPath}{assetPath}";
+            stringBuilder.Clear();
+            stringBuilder
+                .Append(PAT_Const.Strings.invalidPath)
+                .Append(assetPath);
+
+            return stringBuilder.ToString();
+        }
+
+        internal static string MakeDefaultSettingsCreated(string assetPath)
+        {
+            stringBuilder.Clear();
+            stringBuilder
+                .Append(PAT_Const.Strings.defaultSettingsCreated)
+                .Append(assetPath);
+
+            return stringBuilder.ToString();
+        }
+
+        internal static string MakeFailedToLoadSettings(string errorMessage)
+        {
+            stringBuilder.Clear();
+            stringBuilder
+                .Append(PAT_Const.Strings.failedToLoadSettings)
+                .Append(errorMessage);
+
+            return stringBuilder.ToString();
         }
 
         internal static string MakeSuccess(string assetPath, PATSettings settings)
         {
-            return $"{PAT_Const.Strings.success}\n{assetPath}\n{MakeSettings(settings: settings)}";
+            stringBuilder.Clear();
+            stringBuilder
+                .Append(PAT_Const.Strings.success)
+                .Append(PAT_Const.Strings.JsonFormatting.newline)
+                .Append(assetPath)
+                .AppendLine();
+            AppendSettings(settings: settings);
+
+            return stringBuilder.ToString();
         }
 
         internal static string MakeSettingsActivated(string assetPath, PATSettings settings)
         {
-            return $"{PAT_Const.Strings.settingsActivated}\n{assetPath}\n{MakeSettings(settings: settings)}";
+            stringBuilder.Clear();
+            stringBuilder
+                .Append(PAT_Const.Strings.settingsActivated)
+                .Append(PAT_Const.Strings.JsonFormatting.newline)
+                .Append(assetPath)
+                .AppendLine();
+            AppendSettings(settings: settings);
+
+            return stringBuilder.ToString();
         }
 
-        internal static string MakeSettings(PATSettings settings)
+        static void AppendSettings(PATSettings settings)
         {
-            stringBuilder.Clear();
-            stringBuilder.AppendLine("{");
-            stringBuilder.AppendLine($"  \"minTextureSize\": {settings.minTextureSize},");
-            stringBuilder.AppendLine($"  \"PPU\": {settings.PPU},");
-            stringBuilder.AppendLine($"  \"isReadable\": {settings.isReadable.ToString().ToLower()},");
-            stringBuilder.AppendLine($"  \"postProcessOrder\": {settings.postProcessOrder},");
+            stringBuilder.AppendLine(value: PAT_Const.Strings.JsonFormatting.openBrace);
+            AppendJsonField(
+                fieldName: PAT_Const.Strings.JsonFormatting.minTextureSizeField,
+                value: settings.minTextureSize
+            );
+            AppendJsonField(fieldName: PAT_Const.Strings.JsonFormatting.ppuField, value: settings.PPU);
+            AppendJsonField(
+                fieldName: PAT_Const.Strings.JsonFormatting.isReadableField,
+                value: settings.isReadable.ToString().ToLower()
+            );
+            AppendJsonField(
+                fieldName: PAT_Const.Strings.JsonFormatting.postProcessOrderField,
+                value: settings.postProcessOrder
+            );
 
-            stringBuilder.AppendLine(
-                $"  \"includePaths\": [{string.Join(", ", (settings.includePaths ?? Array.Empty<string>()).Select(p => $"\"{p}\""))}],"
+            AppendJsonArrayField(
+                fieldName: PAT_Const.Strings.JsonFormatting.includePathsField,
+                values: settings.includePaths
             );
-            stringBuilder.AppendLine(
-                $"  \"excludePaths\": [{string.Join(", ", (settings.excludePaths ?? Array.Empty<string>()).Select(p => $"\"{p}\""))}],"
+            AppendJsonArrayField(
+                fieldName: PAT_Const.Strings.JsonFormatting.excludePathsField,
+                values: settings.excludePaths
             );
-            stringBuilder.AppendLine(
-                $"  \"fullRectMeshSubstrings\": [{string.Join(", ", (settings.fullRectMeshSubstrings ?? Array.Empty<string>()).Select(s => $"\"{s}\""))}],"
+            AppendJsonArrayField(
+                fieldName: PAT_Const.Strings.JsonFormatting.fullRectMeshSubstringsField,
+                values: settings.fullRectMeshSubstrings
             );
-            stringBuilder.AppendLine(
-                $"  \"fullRectMeshPaths\": [{string.Join(", ", (settings.fullRectMeshPaths ?? Array.Empty<string>()).Select(p => $"\"{p}\""))}],"
+            AppendJsonArrayField(
+                fieldName: PAT_Const.Strings.JsonFormatting.fullRectMeshPathsField,
+                values: settings.fullRectMeshPaths
             );
-            stringBuilder.AppendLine(
-                $"  \"multipleSpriteModeSubstrings\": [{string.Join(", ", (settings.multipleSpriteModeSubstrings ?? Array.Empty<string>()).Select(s => $"\"{s}\""))}],"
+            AppendJsonArrayField(
+                fieldName: PAT_Const.Strings.JsonFormatting.multipleSpriteModeSubstringsField,
+                values: settings.multipleSpriteModeSubstrings
             );
-            stringBuilder.AppendLine(
-                $"  \"multipleSpriteModePaths\": [{string.Join(", ", (settings.multipleSpriteModePaths ?? Array.Empty<string>()).Select(p => $"\"{p}\""))}]"
+            AppendJsonArrayField(
+                fieldName: PAT_Const.Strings.JsonFormatting.multipleSpriteModPathsField,
+                values: settings.multipleSpriteModePaths,
+                isLast: true
             );
-            stringBuilder.AppendLine("}");
-            return stringBuilder.ToString();
+
+            stringBuilder.AppendLine(value: PAT_Const.Strings.JsonFormatting.closeBrace);
+        }
+
+        static void AppendJsonField(string fieldName, object value, bool isLast = false)
+        {
+            stringBuilder
+                .Append(PAT_Const.Strings.JsonFormatting.indent)
+                .Append(PAT_Const.Strings.JsonFormatting.quote)
+                .Append(fieldName)
+                .Append(PAT_Const.Strings.JsonFormatting.quote)
+                .Append(PAT_Const.Strings.JsonFormatting.colonSpace)
+                .Append(value);
+
+            if (!isLast)
+            {
+                stringBuilder.Append(PAT_Const.Strings.JsonFormatting.comma);
+            }
+
+            stringBuilder.AppendLine();
+        }
+
+        static void AppendJsonArrayField(string fieldName, string[] values, bool isLast = false)
+        {
+            stringBuilder
+                .Append(PAT_Const.Strings.JsonFormatting.indent)
+                .Append(PAT_Const.Strings.JsonFormatting.quote)
+                .Append(fieldName)
+                .Append(PAT_Const.Strings.JsonFormatting.quote)
+                .Append(PAT_Const.Strings.JsonFormatting.colonSpace)
+                .Append(PAT_Const.Strings.JsonFormatting.openBracket);
+
+            string[] valueStrings = values ?? Array.Empty<string>();
+            for (int i = 0; i < valueStrings.Length; i++)
+            {
+                if (i > 0)
+                {
+                    stringBuilder.Append(PAT_Const.Strings.JsonFormatting.separator);
+                }
+
+                stringBuilder
+                    .Append(PAT_Const.Strings.JsonFormatting.quote)
+                    .Append(valueStrings[i])
+                    .Append(PAT_Const.Strings.JsonFormatting.quote);
+            }
+
+            stringBuilder.Append(PAT_Const.Strings.JsonFormatting.closeBracket);
+
+            if (!isLast)
+            {
+                stringBuilder.Append(PAT_Const.Strings.JsonFormatting.comma);
+            }
+
+            stringBuilder.AppendLine();
         }
     }
 }

@@ -4,8 +4,8 @@ namespace PAT
 {
     [
         CreateAssetMenu(
-            fileName = "PixelArtTextureSettings",
-            menuName = "PixelArtPostProcessor/Settings"
+            fileName = PAT_Const.Strings.CreateAssetMenu.fileName,
+            menuName = PAT_Const.Strings.CreateAssetMenu.menuName
         )
     ]
     public class PATSettings : ScriptableObject
@@ -13,21 +13,21 @@ namespace PAT
         [HideInInspector]
         public bool isActive = false;
 
-        [Header(header: "Base Settings")]
+        [Header(header: PAT_Const.Strings.Headers.baseSettings)]
         public int PPU = 32;
         public int minTextureSize = 32;
         public bool isReadable = true;
         public int postProcessOrder;
 
-        [Header(header: "Main Paths")]
+        [Header(header: PAT_Const.Strings.Headers.mainPaths)]
         public string[] includePaths;
         public string[] excludePaths;
 
-        [Header(header: "Full Rect Mesh Type")]
+        [Header(header: PAT_Const.Strings.Headers.fullRectMeshType)]
         public string[] fullRectMeshSubstrings;
         public string[] fullRectMeshPaths;
 
-        [Header(header: "Multiple Sprite Mode")]
+        [Header(header: PAT_Const.Strings.Headers.multipleSpriteMode)]
         public string[] multipleSpriteModeSubstrings;
         public string[] multipleSpriteModePaths;
     }

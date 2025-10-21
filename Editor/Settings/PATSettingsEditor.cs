@@ -6,8 +6,6 @@ namespace PAT
     [CustomEditor(inspectedType: typeof(PATSettings))]
     class AssetPostprocessorSettingsEditor : Editor
     {
-        const string buttonText = "Set Active";
-
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
@@ -19,14 +17,14 @@ namespace PAT
             
             if (thisSettings.isActive)
             {
-                EditorGUILayout.HelpBox("This settings object is currently ACTIVE", MessageType.Info);
+                EditorGUILayout.HelpBox(message: PAT_Const.Strings.UI.settingsActiveInfo, type: MessageType.Info);
             }
             else
             {
-                EditorGUILayout.HelpBox("This settings object is currently INACTIVE", MessageType.Warning);
+                EditorGUILayout.HelpBox(message: PAT_Const.Strings.UI.settingsInactiveWarning, type: MessageType.Warning);
             }
             
-            if (GUILayout.Button(text: buttonText))
+            if (GUILayout.Button(text: PAT_Const.Strings.UI.setActiveButton))
             {
                 PATSettingsLoader.SetActiveSettings(settings: thisSettings);
                 PATPostProcessor.SetActiveSettings(settings: thisSettings);

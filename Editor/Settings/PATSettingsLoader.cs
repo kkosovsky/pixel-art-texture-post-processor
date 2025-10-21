@@ -14,7 +14,7 @@ namespace PAT
             }
             catch (Exception ex)
             {
-                PATLog.Error(message: $"Failed to load PAT Settings: {ex.Message}");
+                PATLog.Error(message: StringsFactory.MakeFailedToLoadSettings(errorMessage: ex.Message));
                 return null;
             }
         }
