@@ -2,7 +2,7 @@
 
 A Unity Editor tool that automatically applies pixel-perfect import settings to sprite textures based on configurable path rules and naming conventions.
 
-![Unity Version](https://img.shields.io/badge/Unity-6000.2%2B-blue)
+![Unity Version](https://img.shields.io/badge/Unity-2020.3%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Version](https://img.shields.io/badge/version-1.0.0-orange)
 
@@ -164,12 +164,12 @@ The tool uses Unity's `AssetPostprocessor` to intercept texture imports. When a 
 
 ## Requirements
 
-- Unity 6000.2 or higher
+- Unity 2020.3 or higher
 - No external dependencies
 
 ## Compatibility
 
-- ✅ Unity 6000.2+
+- ✅ Unity 2020.3 LTS+
 - ✅ All render pipelines (Built-in, URP, HDRP)
 - ✅ All platforms
 
@@ -194,11 +194,81 @@ A: Simply restart Unity. Default settings will be automatically regenerated and 
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feat/amazing-feature`)
-3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-4. Push to the branch (`git push origin feat/amazing-feature`)
+### Workflow
+
+1. Clone the repository
+2. Create your feature branch (see branch naming below)
+3. Commit your changes (see commit conventions below)
+4. Push to the branch
 5. Open a Pull Request
+
+### Branch Naming Convention
+
+We follow **semantic branch naming** with type prefixes:
+
+```
+<type>/<short-description>
+```
+
+**Types:**
+- `feat/` - New features (e.g., `feat/add-animator-support`)
+- `fix/` - Bug fixes (e.g., `fix/resolve-reentrancy-error`)
+- `docs/` - Documentation changes (e.g., `docs/update-readme`)
+- `refactor/` - Code refactoring (e.g., `refactor/simplify-settings-loader`)
+- `test/` - Adding or updating tests
+- `chore/` - Maintenance tasks (e.g., `chore/update-dependencies`)
+
+**Examples:**
+```bash
+git checkout -b feat/add-multiple-ppu-support
+git checkout -b fix/path-matching-bug
+git checkout -b docs/improve-installation-guide
+```
+
+### Commit Message Convention
+
+We use **[Conventional Commits](https://www.conventionalcommits.org/)** format:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer]
+```
+
+**Rules:**
+- Summary line must be **50 characters or less**
+- Use imperative mood ("add feature" not "added feature")
+- No period at the end of the summary
+- Body wraps at 72 characters (if needed)
+
+**Types:**
+- `feat` - New feature
+- `fix` - Bug fix
+- `docs` - Documentation
+- `refactor` - Code refactoring
+- `test` - Tests
+- `chore` - Maintenance
+
+**Examples:**
+```bash
+# Good (under 50 chars)
+git commit -m "feat: add sprite mesh configuration"
+git commit -m "fix: resolve AssetDatabase reentrancy error"
+git commit -m "docs: update installation instructions"
+
+# With scope
+git commit -m "fix(loader): prevent nested refresh calls"
+git commit -m "feat(settings): add multiple PPU support"
+
+# With body
+git commit -m "feat: add active settings management
+
+- Implement SetActiveSettings method
+- Add visual indicators in Inspector
+- Auto-deactivate conflicting settings"
+```
 
 ## License
 
