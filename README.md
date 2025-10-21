@@ -65,9 +65,10 @@ You can also create custom settings via:
 Array of paths to process (e.g., `Assets/Sprites/`)
 
 **Exclude Paths**  
+Default: `["Packages/", "Assets/Gizmos/", "Assets/StreamingAssets/"]`  
 Array of paths to skip even if in include paths
 
-> **Note:** Only textures in `includePaths` AND not in `excludePaths` will be processed.
+> **Note:** Only textures in `includePaths` AND not in `excludePaths` will be processed. By default, Unity packages, editor gizmos, and streaming assets are excluded to prevent unintended processing.
 
 ### Sprite Mesh Type
 

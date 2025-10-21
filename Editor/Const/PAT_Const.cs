@@ -26,7 +26,11 @@ namespace PAT
             internal const string assetPath = "Assets/PixelArtTexturePostProcessor/Editor/Settings/Assets/PAT_DefaultSettings.asset";
             
             internal static readonly string[] includePaths = { "Assets/Sprites/" };
-            internal static readonly string[] excludePaths = System.Array.Empty<string>();
+            internal static readonly string[] excludePaths = { 
+                "Packages/",
+                "Assets/Gizmos/",
+                "Assets/StreamingAssets/"
+            };
             
             internal static readonly string[] fullRectMeshSubstrings = { "9Slice" };
             internal static readonly string[] fullRectMeshPaths = System.Array.Empty<string>();

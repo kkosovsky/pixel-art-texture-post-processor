@@ -11,12 +11,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 320681c3ea814ba39a2352b08bdbcae1, type: 3}
   m_Name: PAT_DefaultSettings
-  m_EditorClassIdentifier: Assembly-CSharp-Editor::PAT.PATSettings
-  minTextureSize: 32
+  m_EditorClassIdentifier: com.pixelarttexturepostprocessor.editor::PAT.PATSettings
   PPU: 32
+  minTextureSize: 32
+  isReadable: 1
+  postProcessOrder: 0
   includePaths:
   - Assets/Sprites/
-  excludePaths: []
+  excludePaths:
+  - Packages/
   fullRectMeshSubstrings:
   - 9Slice
   fullRectMeshPaths: []
