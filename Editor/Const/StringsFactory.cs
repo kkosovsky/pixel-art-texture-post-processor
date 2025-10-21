@@ -37,6 +37,26 @@ namespace PAT
             return stringBuilder.ToString();
         }
 
+        internal static string MakeFailedToLoadSettingsAtPath(string assetPath)
+        {
+            stringBuilder.Clear();
+            stringBuilder
+                .Append(PAT_Const.Strings.failedToLoadSettingsAtPath)
+                .Append(assetPath);
+
+            return stringBuilder.ToString();
+        }
+
+        internal static string MakeFailedToGetTextureSize(string errorMessage)
+        {
+            stringBuilder.Clear();
+            stringBuilder
+                .Append(PAT_Const.Strings.failedToGetTextureSize)
+                .Append(errorMessage);
+
+            return stringBuilder.ToString();
+        }
+
         internal static string MakeSuccess(string assetPath, PATSettings settings)
         {
             stringBuilder.Clear();

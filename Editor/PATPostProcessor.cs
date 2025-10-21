@@ -34,6 +34,11 @@ namespace PAT
 
         void OnPreprocessTexture()
         {
+            if (settings == null)
+            {
+                return;
+            }
+
             if (!IsValidPath())
             {
                 PATLog.Warning(message: StringsFactory.MakeInvalidPath(assetPath: assetPath));
@@ -85,17 +90,30 @@ namespace PAT
 
         static int GetTextureSize(TextureImporter importer)
         {
-            object[] args = { 0, 0 };
-            MethodInfo methodInfo = typeof(TextureImporter).GetMethod(
-                name: PAT_Const.Strings.Reflection.getWidthAndHeight,
-                bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance
-            );
-            methodInfo.Invoke(obj: importer, parameters: args);
+            try
+            {
+                object[] args = { 0, 0 };
+                MethodInfo methodInfo = typeof(TextureImporter).GetMethod(
+                    name: PAT_Const.Strings.Reflection.getWidthAndHeight,
+                    bindingAttr: BindingFlags.NonPublic | BindingFlags.Instance
+                );
 
-            int width = (int)args[0];
-            int height = (int)args[1];
+                if (methodInfo == null)
+                {
+                    PATLog.Error(message: PAT_Const.Strings.getWidthAndHeightNotFound);
+                    return settings.minTextureSize;
+                }
 
-            return Math.Max(val1: width, val2: height);
+                methodInfo.Invoke(obj: importer, parameters: args);
+                int width = (int)args[0];
+                int height = (int)args[1];
+                return Math.Max(val1: width, val2: height);
+            }
+            catch (Exception ex)
+            {
+                PATLog.Error(message: StringsFactory.MakeFailedToGetTextureSize(errorMessage: ex.Message));
+                return settings.minTextureSize;
+            }
         }
 
         static int GetNearestPowerOfTwo(int value) => value <= settings.minTextureSize

@@ -31,11 +31,11 @@ namespace PAT
         static PATSettings LoadSettingsInternal()
         {
             string[] guids = AssetDatabase.FindAssets(filter: PAT_Const.Strings.assetFilter);
-            
+
             if (guids.Length == 0)
             {
                 PATLog.Warning(message: PAT_Const.Strings.noSettingsFoundCreatingDefault);
-                PATSettings settings =  PATDefaultSettingsFactory.MakeDefaultSettings();
+                PATSettings settings = PATDefaultSettingsFactory.MakeDefaultSettings();
                 AssetDatabase.SaveAssets();
                 return settings;
             }
@@ -60,14 +60,22 @@ namespace PAT
 
         static PATSettings[] LoadAllSettings(string[] guids)
         {
-            PATSettings[] allSettings = new PATSettings[guids.Length];
-            for (int i = 0; i < guids.Length; i++)
-            {
-                string assetPath = AssetDatabase.GUIDToAssetPath(guid: guids[i]);
-                allSettings[i] = AssetDatabase.LoadAssetAtPath<PATSettings>(assetPath: assetPath);
-            }
-
-            return allSettings;
+            return guids
+                .Select(selector: AssetDatabase.GUIDToAssetPath)
+                .Select(
+                    selector: path =>
+                    {
+                        PATSettings settings = AssetDatabase.LoadAssetAtPath<PATSettings>(assetPath: path);
+                        if (settings == null)
+                        {
+                            PATLog.Warning(message: StringsFactory.MakeFailedToLoadSettingsAtPath(assetPath: path));
+                        }
+                        
+                        return settings;
+                    }
+                )
+                .Where(predicate: settings => settings != null)
+                .ToArray();
         }
 
         static void DeactivateAllExcept(PATSettings[] allSettings, PATSettings exception)

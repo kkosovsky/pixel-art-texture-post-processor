@@ -9,7 +9,10 @@ namespace PAT
             internal const string noSettingsFoundCreatingDefault = "No PATSettings found. Creating default settings.";
             internal const string settingsActivated = "PAT Settings Activated: ";
             internal const string failedToLoadSettings = "Failed to load PAT Settings: ";
+            internal const string failedToLoadSettingsAtPath = "Failed to load PATSettings at path: ";
             internal const string defaultSettingsCreated = "Default PAT Settings created at: ";
+            internal const string getWidthAndHeightNotFound = "GetWidthAndHeight method not found - Unity API may have changed";
+            internal const string failedToGetTextureSize = "Failed to get texture size via reflection: ";
             internal static readonly string assetFilter = $"t:{nameof(PATSettings)}";
             
             internal static class Reflection
@@ -43,19 +46,6 @@ namespace PAT
                 internal const string successFormat = "<color=green>\u2705 {0}</color>";
                 internal const string errorFormat = "<color=red>\u274c {0}</color>";
                 internal const string warningFormat = "<color=yellow>\u26a0\ufe0f {0}</color>";
-                internal const string infoFormat = "<color=cyan>ℹ\ufe0f {0}</color>";
-                internal const string criticalFormat = "<color=red><b>\ud83d\udea8 CRITICAL: {0}</b></color>";
-                internal const string progressFormat = "<color=cyan>\ud83d\udcc8 {0}: <b>{1:P0}</b> {2}</color>";
-                internal const string methodFormat = "<color=magenta>\ud83d\udd27 Method: <b>{0}</b></color>";
-                
-                internal const char progressBarFilled = '█';
-                internal const char progressBarEmpty = '░';
-                
-                internal const string colorRed = "red";
-                internal const string colorYellow = "yellow";
-                internal const string colorGreen = "green";
-                
-                internal const string performanceFormatTemplate = "<color={0}>\u23f1\ufe0f {1}: <b>{2:F2}ms</b></color>";
             }
 
             internal static class JsonFormatting
@@ -66,7 +56,6 @@ namespace PAT
                 internal const string openBracket = "[";
                 internal const string closeBracket = "]";
                 internal const string comma = ",";
-                internal const string empty = "";
                 internal const string indent = "  ";
                 internal const string colonSpace = ": ";
                 internal const string separator = ", ";
