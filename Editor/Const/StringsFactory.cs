@@ -18,6 +18,11 @@ namespace PAT
             return $"{PAT_Const.Strings.success}\n{assetPath}\n{MakeSettings(settings: settings)}!";
         }
 
+        internal static string MakeSettingsActivated(string assetPath, PATSettings settings)
+        {
+            return $"{PAT_Const.Strings.settingsActivated}\n{assetPath}\n{MakeSettings(settings: settings)}!";
+        }
+
         internal static string MakeSettings(PATSettings settings)
         {
             stringBuilder.Clear();

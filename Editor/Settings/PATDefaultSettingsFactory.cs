@@ -9,6 +9,7 @@ namespace PAT
         {
             PATSettings settings = ScriptableObject.CreateInstance<PATSettings>();
     
+            settings.isActive = true;
             settings.minTextureSize = PAT_Const.DefaultSettings.minTextureSize;
             settings.PPU = PAT_Const.DefaultSettings.PPU;
             settings.isReadable = PAT_Const.DefaultSettings.isReadable;
@@ -24,9 +25,6 @@ namespace PAT
             settings.multipleSpriteModePaths = PAT_Const.DefaultSettings.multipleSpriteModePaths;
     
             AssetDatabase.CreateAsset(asset: settings, path: PAT_Const.DefaultSettings.assetPath);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-    
             PATLog.Success(message: $"Default PAT Settings created at: {PAT_Const.DefaultSettings.assetPath}");
             return settings;
         }

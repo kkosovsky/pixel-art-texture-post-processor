@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320681c3ea814ba39a2352b08bdbcae1, type: 3}
   m_Name: PAT_DefaultSettings
   m_EditorClassIdentifier: com.pixelarttexturepostprocessor.editor::PAT.PATSettings
+  isActive: 1
   PPU: 32
   minTextureSize: 32
   isReadable: 1

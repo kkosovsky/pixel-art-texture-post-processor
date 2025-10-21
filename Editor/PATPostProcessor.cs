@@ -22,7 +22,7 @@ namespace PAT
 
         static PATSettings settings;
 
-        internal static void ApplySettings(PATSettings settings)
+        internal static void SetActiveSettings(PATSettings settings)
         {
             PATPostProcessor.settings = settings;
         }

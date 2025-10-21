@@ -10,6 +10,9 @@ namespace PAT
     ]
     public class PATSettings : ScriptableObject
     {
+        [HideInInspector]
+        public bool isActive = false;
+
         [Header(header: "Base Settings")]
         public int PPU = 32;
         public int minTextureSize = 32;
