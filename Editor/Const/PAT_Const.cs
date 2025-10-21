@@ -4,7 +4,6 @@ namespace PAT
     {
         internal static class Strings
         {
-            internal const string assets = "Assets";
             internal const string invalidPath = "Invalid Path: ";
             internal const string success = "PixelArtPostprocessor finished with succes!";
             internal const string noSettingsFoundCreatingDefault = "No PATSettings found. Creating default settings.";

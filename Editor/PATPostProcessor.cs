@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -37,11 +36,7 @@ namespace PAT
         {
             if (!IsValidPath())
             {
-                if (assetPath.Contains(PAT_Const.Strings.assets))
-                {
-                    PATLog.Info(message: StringsFactory.MakeInvalidPath(assetPath: assetPath));
-                }
-                
+                PATLog.Warning(message: StringsFactory.MakeInvalidPath(assetPath: assetPath));
                 return;
             }
 
@@ -68,13 +63,13 @@ namespace PAT
 
         bool IsValidPath()
         {
-            return settings.includePaths.Contains(value: assetPath)
-                && !settings.excludePaths.Contains(value: assetPath);
+            return assetPath.ContainsAnySubstring(substrings: settings.includePaths)
+                && !assetPath.ContainsAnySubstring(substrings: settings.excludePaths);
         }
 
         SpriteMeshType GetSpriteMeshType()
         {
-            bool isFullRect = settings.fullRectMeshPaths.Contains(value: assetPath)
+            bool isFullRect = assetPath.ContainsAnySubstring(substrings: settings.fullRectMeshPaths)
                 || assetPath.ContainsAnySubstring(substrings: settings.fullRectMeshSubstrings);
 
             return isFullRect ? SpriteMeshType.FullRect : SpriteMeshType.Tight;
@@ -82,7 +77,7 @@ namespace PAT
 
         SpriteImportMode GetSpriteMode()
         {
-            bool isMultipleMode = settings.multipleSpriteModePaths.Contains(value: assetPath)
+            bool isMultipleMode = assetPath.ContainsAnySubstring(substrings: settings.multipleSpriteModePaths)
                 || assetPath.ContainsAnySubstring(substrings: settings.multipleSpriteModeSubstrings);
 
             return isMultipleMode ? SpriteImportMode.Multiple : SpriteImportMode.Single;

@@ -21,6 +21,7 @@ MonoBehaviour:
   - Assets/Sprites/
   excludePaths:
   - Packages/
+  - Sprites_2
   fullRectMeshSubstrings:
   - 9Slice
   fullRectMeshPaths: []

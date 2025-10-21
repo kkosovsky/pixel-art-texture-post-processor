@@ -10,17 +10,17 @@ namespace PAT
 
         internal static string MakeInvalidPath(string assetPath)
         {
-            return $"{PAT_Const.Strings.invalidPath}{assetPath}!";
+            return $"{PAT_Const.Strings.invalidPath}{assetPath}";
         }
 
         internal static string MakeSuccess(string assetPath, PATSettings settings)
         {
-            return $"{PAT_Const.Strings.success}\n{assetPath}\n{MakeSettings(settings: settings)}!";
+            return $"{PAT_Const.Strings.success}\n{assetPath}\n{MakeSettings(settings: settings)}";
         }
 
         internal static string MakeSettingsActivated(string assetPath, PATSettings settings)
         {
-            return $"{PAT_Const.Strings.settingsActivated}\n{assetPath}\n{MakeSettings(settings: settings)}!";
+            return $"{PAT_Const.Strings.settingsActivated}\n{assetPath}\n{MakeSettings(settings: settings)}";
         }
 
         internal static string MakeSettings(PATSettings settings)
