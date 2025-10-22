@@ -19,13 +19,26 @@ namespace PAT
             }
         }
 
-        internal static void SetActiveSettings(PATSettings settings)
+        internal static void ActivateSettings(PATSettings settings)
         {
             string[] guids = AssetDatabase.FindAssets(filter: PAT_Const.Strings.assetFilter);
             PATSettings[] allSettings = LoadAllSettings(guids: guids);
             DeactivateAllExcept(allSettings: allSettings, exception: settings);
             Activate(settings: settings);
             AssetDatabase.SaveAssets();
+        }
+
+        internal static void DeactivateSettings(PATSettings settings)
+        {
+            settings.isActive = false;
+            EditorUtility.SetDirty(target: settings);
+            AssetDatabase.SaveAssets();
+            PATLog.Warning(
+                message: StringsFactory.MakeSettingsDeactivated(
+                    assetPath: AssetDatabase.GetAssetPath(assetObject: settings),
+                    settings: settings
+                )
+            );
         }
 
         static PATSettings LoadSettingsInternal()
@@ -35,7 +48,7 @@ namespace PAT
             if (guids.Length == 0)
             {
                 PATLog.Warning(message: PAT_Const.Strings.noSettingsFoundCreatingDefault);
-                PATSettings settings = PATDefaultSettingsFactory.MakeDefaultSettings();
+                PATSettings settings = PATDefaultSettingsFactory.MakeDefaultActiveSettings();
                 AssetDatabase.SaveAssets();
                 return settings;
             }

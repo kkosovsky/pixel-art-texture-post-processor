@@ -11,7 +11,7 @@ namespace PAT
     public class PATSettings : ScriptableObject
     {
         [HideInInspector]
-        public bool isActive = false;
+        public bool isActive;
 
         [Header(header: PAT_Const.Strings.Headers.baseSettings)]
         public int PPU = 32;

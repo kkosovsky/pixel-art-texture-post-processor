@@ -17,17 +17,6 @@ namespace PAT
 
         #endregion
 
-        #region Apply Settings
-
-        static PATSettings settings;
-
-        internal static void SetActiveSettings(PATSettings settings)
-        {
-            PATPostProcessor.settings = settings;
-        }
-
-        #endregion
-
         #region AssetPostprocessor
 
         public override int GetPostprocessOrder() => settings != null ? settings.postProcessOrder : 0;
@@ -36,6 +25,7 @@ namespace PAT
         {
             if (settings == null)
             {
+                PATLog.Warning(message: PAT_Const.Strings.noSettingsActivatedSkipping);
                 return;
             }
 
@@ -60,6 +50,38 @@ namespace PAT
             int textureSize = GetTextureSize(importer: textureImporter);
             textureImporter.maxTextureSize = GetNearestPowerOfTwo(value: textureSize);
             PATLog.Success(message: StringsFactory.MakeSuccess(assetPath: assetPath, settings: settings));
+        }
+
+        #endregion
+
+        #region Settings State Management
+
+        static PATSettings settings;
+
+        internal static void ActivateSettings(PATSettings settings)
+        {
+            PATPostProcessor.settings = settings;
+        }
+
+        internal static void DeactivateSettings(PATSettings settings)
+        {
+            if (PATPostProcessor.settings != settings)
+            {
+                return;
+            }
+
+            PATPostProcessor.settings = null;
+        }
+
+        internal static void OnSettingsDeleted(PATSettings deletedSettings)
+        {
+            if (settings != deletedSettings)
+            {
+                return;
+            }
+
+            settings = null;
+            PATLog.Warning(message: PAT_Const.Strings.settingsDeletedWarning);
         }
 
         #endregion

@@ -1,4 +1,4 @@
-# Pixel Art Texture Post Processor
+# PAT (Pixel Art Texture) Post Processor
 
 A Unity Editor tool that automatically applies pixel-perfect import settings to sprite textures based on configurable path rules and naming conventions.
 
@@ -33,41 +33,54 @@ A Unity Editor tool that automatically applies pixel-perfect import settings to 
 
 ## Quick Start
 
-1. The package auto-creates default settings if none exist
-2. Navigate to settings: `Assets > PixelArtTexturePostProcessor > Editor > Settings > Assets > PAT_DefaultSettings`
-3. Configure your settings (PPU, paths, etc.)
-4. Settings are automatically active if it's the only one or first found
-5. Import your pixel art - settings apply automatically!
+1. When you add PAT to your project, it auto-creates default settings at `Assets/PAT_DefaultSettings.asset` and activates them
+2. Find the settings asset in your Project window (you can move it anywhere you want)
+3. Configure your settings (PPU, paths, etc.) in the Inspector
+4. Import your pixel art - settings apply automatically!
+
+> **Note**  
+> - You can have multiple setting assets and switch between them, more in [Working with Multiple Settings](#working-with-multiple-settings)
+> - If you close Unity Editor when there are NO existing settings assets, PAT will auto-create default settings on the next launch
+> - If you close Unity Editor when there ARE existing settings, nothing will happen - PAT will use last active settings
 
 ## Configuration
 
-### Settings Location
+### Creating Settings
 
-Default settings are stored at:
-```
-Assets/PixelArtTexturePostProcessor/Editor/Settings/Assets/PAT_DefaultSettings.asset
-```
+There are three ways to create settings:
 
-You can also create custom settings via:  
-`Right-click in Project → Create > PixelArtPostProcessor > Settings`
+**Method 1: Right-Click Menu**  
+`Right-click in Project → Create > PAT Post Processor > Settings`
+
+**Method 2: Tools Menu**  
+`Tools → PAT Post Processor → Create Default Settings` (opens save dialog)
+
+**Method 3: Automatic**  
+Settings are auto-created at `Assets/PAT_DefaultSettings.asset` and activated if none exist when Unity starts
 
 ### Working with Multiple Settings
 
 You can create multiple settings configurations for different workflows:
 
-1. Create new settings: `Right-click → Create > PixelArtPostProcessor > Settings`
+1. Create new settings using any of the methods above
 2. Configure the settings as needed
-3. Click the **"Set Active"** button in the Inspector to activate those settings
-4. Only one settings object can be active at a time (others are automatically deactivated)
+3. Select the settings in the Inspector
+4. Click **"Activate Settings"** to make it active
+5. Only one settings object can be active at a time (others are automatically deactivated)
 
 **Active Settings Indicator:**
-- Active settings show: "This settings object is currently ACTIVE" (blue info box)
-- Inactive settings show: "This settings object is currently INACTIVE" (yellow warning box)
+- Active settings show: "This settings object is currently ACTIVE" (blue info box) with **"Deactivate Settings"** button
+- Inactive settings show: "This settings object is currently INACTIVE" (yellow warning box) with **"Activate Settings"** button
+
+**Deactivating Settings:**
+- Click **"Deactivate Settings"** to turn off the post-processor without deleting the settings
+- When no settings are active, textures are imported with default Unity settings
+- You can reactivate the same settings later
 
 **Loading Priority on Startup:**
-1. Settings marked as `isActive = true` (uses first if multiple found)
+1. Settings marked as active (uses first if multiple found)
 2. First available settings file (auto-activated as fallback)
-3. Creates default settings if none exist
+3. Creates default settings if none exist and activates them
 
 ### Base Settings
 
@@ -107,7 +120,7 @@ Specific paths that should use FullRect mesh
 Control whether sprites are imported as `Single` or `Multiple`:
 
 **Multiple Sprite Mode Substrings**  
-Default: `["Animation"]`  
+Default: `["Animation", "Anim"]`  
 Any texture path containing these strings uses Multiple sprite mode (for sprite sheets)
 
 **Multiple Sprite Mode Paths**  
@@ -162,6 +175,16 @@ The tool uses Unity's `AssetPostprocessor` to intercept texture imports. When a 
 
 **Result:** Zero manual configuration needed! ✨
 
+### Settings Lifecycle Management
+
+The system monitors settings assets and handles lifecycle events:
+
+- **On Startup**: Loads active settings or creates defaults if none exist
+- **On Activation**: Automatically deactivates other settings to ensure only one is active
+- **On Deactivation**: Post-processor becomes inactive; textures use Unity's default import settings
+- **On Deletion**: If active settings are deleted, post-processor immediately becomes inactive and logs a warning
+- **Multiple Settings**: You can maintain multiple configuration profiles and switch between them anytime
+
 ## Requirements
 
 - Unity 2020.3 or higher
@@ -176,19 +199,27 @@ The tool uses Unity's `AssetPostprocessor` to intercept texture imports. When a 
 ## Troubleshooting
 
 **Q: My sprites aren't being processed**  
-A: Check that your sprite path is in `Include Paths` and not in `Exclude Paths`
+A: Check the following:
+- Ensure at least one settings object exists and is active (blue info box in Inspector)
+- Verify your sprite path is in `Include Paths` and not in `Exclude Paths`
+- Check the Console for any PAT warning messages
 
 **Q: Can I have multiple settings files?**  
 A: Yes! Create multiple settings configurations. Only one can be active at a time.
 
 **Q: How do I switch between different settings?**  
-A: Select the settings you want to activate in the Inspector and click the "Set Active" button. The system automatically deactivates all other settings and activates the selected one.
+A: Select the settings you want to activate in the Inspector and click the **"Activate Settings"** button. The system automatically deactivates all other settings and activates the selected one.
+
+**Q: How do I temporarily disable the post-processor?**  
+A: Select your active settings and click **"Deactivate Settings"**. This keeps the settings file but stops processing textures. You can reactivate it anytime without losing your configuration.
+
+**Q: What happens if I delete the active settings?**  
+A: The post-processor becomes inactive immediately. The system will NOT auto-create new settings. To resume processing, either:
+- Create new settings manually via the right-click menu or Tools menu
+- Reactivate any existing inactive settings
 
 **Q: How do I reset to defaults?**  
-A: Delete the settings asset - it will be recreated with defaults on next import.
-
-**Q: What if I delete default settings?**  
-A: Simply restart Unity. Default settings will be automatically regenerated and set to active.
+A: Use `Tools → PAT Post Processor → Create Default Settings` to create a fresh settings file with default values. Then activate it.
 
 ## Contributing
 
@@ -277,7 +308,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Author
 
 **Kamil Kosowski**  
-📧 kosowski.ka@gmail.com
+📧 kosowski.ka@gmail.com  
+👾 Discord: `kosowski`
 
 ## Acknowledgments
 

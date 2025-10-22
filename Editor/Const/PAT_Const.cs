@@ -5,16 +5,19 @@ namespace PAT
         internal static class Strings
         {
             internal const string invalidPath = "Invalid Path: ";
-            internal const string success = "PixelArtPostprocessor finished with succes!";
+            internal const string success = "PAT finished with success!";
             internal const string noSettingsFoundCreatingDefault = "No PATSettings found. Creating default settings.";
-            internal const string settingsActivated = "PAT Settings Activated: ";
+            internal const string settingsActivated = "PAT Settings Activated!";
+            internal const string settingsDeactivated = "PAT Settings Dectivated! There is no issue, PAT PostProcessor will simply skip work if there are no active settings.";
+            internal const string noSettingsActivatedSkipping = "There are no active PATSettings. Skipping work.";
             internal const string failedToLoadSettings = "Failed to load PAT Settings: ";
             internal const string failedToLoadSettingsAtPath = "Failed to load PATSettings at path: ";
             internal const string defaultSettingsCreated = "Default PAT Settings created at: ";
             internal const string getWidthAndHeightNotFound = "GetWidthAndHeight method not found - Unity API may have changed";
             internal const string failedToGetTextureSize = "Failed to get texture size via reflection: ";
+            internal const string settingsDeletedWarning = "Activate PAT Settings deleted. PAT Postprocessor is now inactive.";
             internal static readonly string assetFilter = $"t:{nameof(PATSettings)}";
-            
+
             internal static class Reflection
             {
                 internal const string getWidthAndHeight = "GetWidthAndHeight";
@@ -22,15 +25,23 @@ namespace PAT
 
             internal static class UI
             {
-                internal const string setActiveButton = "Set Active";
+                internal const string activateSettingsButton = "Activate Settings";
+                internal const string deactivateSettingsButton = "Deactivate Settings";
                 internal const string settingsActiveInfo = "This settings object is currently ACTIVE";
                 internal const string settingsInactiveWarning = "This settings object is currently INACTIVE";
+            }
+
+            internal static class MenuItem
+            {
+                internal const string createDefaultSettings = "Tools/PAT Post Processor/Create Default Settings";
+                internal const string saveDialogTitle = "Save Default PAT Settings";
+                internal const string saveDialogMessage = "Choose where to save the default PAT Settings";
             }
 
             internal static class CreateAssetMenu
             {
                 internal const string fileName = "PixelArtTextureSettings";
-                internal const string menuName = "Pixel Art Post Processor/Settings";
+                internal const string menuName = "PAT Post Processor/Settings";
             }
 
             internal static class Headers
@@ -98,7 +109,7 @@ namespace PAT
             internal static readonly string[] fullRectMeshSubstrings = { "9Slice" };
             internal static readonly string[] fullRectMeshPaths = System.Array.Empty<string>();
 
-            internal static readonly string[] multipleSpriteModeSubstrings = { "Animation" };
+            internal static readonly string[] multipleSpriteModeSubstrings = { "Animation", "Anim" };
             internal static readonly string[] multipleSpriteModePaths = System.Array.Empty<string>();
         }
     }

@@ -83,6 +83,19 @@ namespace PAT
             return stringBuilder.ToString();
         }
 
+        internal static string MakeSettingsDeactivated(string assetPath, PATSettings settings)
+        {
+            stringBuilder.Clear();
+            stringBuilder
+                .Append(PAT_Const.Strings.settingsDeactivated)
+                .Append(PAT_Const.Strings.JsonFormatting.newline)
+                .Append(assetPath)
+                .AppendLine();
+            AppendSettings(settings: settings);
+
+            return stringBuilder.ToString();
+        }
+
         static void AppendSettings(PATSettings settings)
         {
             stringBuilder.AppendLine(value: PAT_Const.Strings.JsonFormatting.openBrace);
