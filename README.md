@@ -23,7 +23,7 @@ A Unity Editor tool that automatically applies pixel-perfect import settings to 
 
 1. Open Unity Package Manager (`Window > Package Manager`)
 2. Click the `+` button → `Add package from git URL`
-3. Enter: `https://github.com/yourusername/pixel-art-texture-post-processor.git`
+3. Enter: `https://github.com/kkosovsky/pixel-art-texture-post-processor.git`
 
 ### Manual Installation
 

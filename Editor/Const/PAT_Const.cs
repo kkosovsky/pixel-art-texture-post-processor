@@ -30,7 +30,7 @@ namespace PAT
             internal static class CreateAssetMenu
             {
                 internal const string fileName = "PixelArtTextureSettings";
-                internal const string menuName = "PixelArtPostProcessor/Settings";
+                internal const string menuName = "Pixel Art Post Processor/Settings";
             }
 
             internal static class Headers
@@ -83,8 +83,8 @@ namespace PAT
             internal const bool isReadable = true;
             internal const int postProcessOrder = 0;
 
-            internal const string assetPath =
-                "Assets/PixelArtTexturePostProcessor/Editor/Settings/Assets/PAT_DefaultSettings.asset";
+            internal const string initialDefaultSettingsPath =
+                "Assets/PAT_DefaultSettings.asset";
 
             internal static readonly string[] includePaths = { "Assets/Sprites/" };
 
